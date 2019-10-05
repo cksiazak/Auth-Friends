@@ -1,16 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 
+import AuthedContext from './context/authContext';
 import Nav from './components/Nav';
 import Routes from './components/Routes';
 
 function App() {
+  const [authed, setAuthed] = useState(false);
   return (
-    <div className="App">
-      <Nav />
+    <AuthedContext.Provider value={{ authed, setAuthed }}>
+      <div className="App">
+        <Nav />
 
-      <Routes />
-    </div>
+        <Routes />
+      </div>
+    </AuthedContext.Provider>
   );
 }
 

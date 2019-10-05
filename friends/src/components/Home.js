@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
+import authedContext from '../context/authContext';
 
 const Home = props => {
+  const { setAuthed } = useContext(authedContext);
   const [form, setForm] = useState({
     username: '',
     password: '',
@@ -14,6 +16,7 @@ const Home = props => {
       .post('/login', form)
       .then(res => {
         localStorage.setItem('token', res.data);
+        setAuthed(true);
         props.history.push('/friends');
       })
       .catch(() => {
