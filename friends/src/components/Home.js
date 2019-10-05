@@ -6,16 +6,16 @@ const Home = props => {
   const { setAuthed } = useContext(authedContext);
   const [form, setForm] = useState({
     username: '',
-    password: '',
-    error: false
+    password: ''
   });
+  const [error, setError] = useState(false);
 
   const formHandler = e => {
     e.preventDefault();
     axiosWithAuth()
       .post('/login', form)
       .then(res => {
-        localStorage.setItem('token', res.data);
+        localStorage.setItem('token', res.data.payload);
         setAuthed(true);
         props.history.push('/friends');
       })
@@ -28,16 +28,16 @@ const Home = props => {
     setForm({
       ...form,
       username: '',
-      password: '',
-      error: true
+      password: ''
     });
+    setError(true);
     setTimeout(() => {
       setForm({
         ...form,
         username: '',
-        password: '',
-        error: false
+        password: ''
       });
+      setError(false);
     }, 3000);
   };
 
@@ -58,7 +58,7 @@ const Home = props => {
         onChange={e => setForm({ ...form, password: e.target.value })}
       />
       <input type="submit" />
-      {form.error && <p>Incorrect username and/or password</p>}
+      {error && <p>Incorrect username and/or password</p>}
     </form>
   );
 };
