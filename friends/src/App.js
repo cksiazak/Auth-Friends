@@ -19,9 +19,12 @@ function App() {
   return (
     <AuthedContext.Provider value={{ authed, setAuthed, logOutHandler }}>
       <div className="App">
+        <h1 style={{ margin: '10px 0' }}>My Friends List</h1>
         <Nav />
+        <hr />
+        {loggedOut && <h2 style={{ color: 'blue' }}>Thanks for visiting!</h2>}
+
         <Routes />
-        {loggedOut && <p>Thanks for visiting!</p>}
       </div>
     </AuthedContext.Provider>
   );

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { axiosWithAuth } from '../../utils/axiosWithAuth';
+import { Card } from 'semantic-ui-react';
+import 'semantic-ui-css/semantic.min.css';
 
 import Friend from './Friend';
 import Loading from '../Loading';
@@ -31,12 +33,13 @@ const Friends = () => {
   }
 
   return (
-    <div>
-      <div>
+    <div style={{ width: '75%', margin: '20px auto' }}>
+      <Card.Group centered style={{ marginBottom: '15px' }}>
         {friends.map(friend => (
           <Friend key={friend.id} info={friend} />
         ))}
-      </div>
+      </Card.Group>
+      <hr />
       <AddFriendForm setFriends={setFriends} />
     </div>
   );

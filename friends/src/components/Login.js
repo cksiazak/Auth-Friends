@@ -1,4 +1,6 @@
 import React, { useState, useContext } from 'react';
+import { Button, Form, Message } from 'semantic-ui-react';
+import 'semantic-ui-css/semantic.min.css';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 import authedContext from '../context/authContext';
 
@@ -42,24 +44,32 @@ const Home = props => {
   };
 
   return (
-    <form onSubmit={e => formHandler(e)}>
-      <input
-        type="text"
-        placeholder="Username"
-        name="Username"
-        value={form.username}
-        onChange={e => setForm({ ...form, username: e.target.value })}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        name="Password"
-        value={form.password}
-        onChange={e => setForm({ ...form, password: e.target.value })}
-      />
-      <input type="submit" />
-      {error && <p>Incorrect username and/or password</p>}
-    </form>
+    <div style={{ width: '30%', margin: '0 auto' }}>
+      <Form error onSubmit={e => formHandler(e)}>
+        <Form.Field>
+          <label>Username</label>
+          <input
+            type="text"
+            placeholder="Username"
+            name="Username"
+            value={form.username}
+            onChange={e => setForm({ ...form, username: e.target.value })}
+          />
+        </Form.Field>
+        <Form.Field>
+          <label>Password</label>
+          <input
+            type="password"
+            placeholder="Password"
+            name="Password"
+            value={form.password}
+            onChange={e => setForm({ ...form, password: e.target.value })}
+          />
+        </Form.Field>
+        {error && <Message error content="Incorrect username/password" />}
+        <Button type="submit">Submit</Button>
+      </Form>
+    </div>
   );
 };
 

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { axiosWithAuth } from '../../utils/axiosWithAuth';
+import { Button, Form, Message } from 'semantic-ui-react';
+import 'semantic-ui-css/semantic.min.css';
 
 const AddFriendForm = ({ setFriends }) => {
   const [form, setForm] = useState({
@@ -41,31 +43,45 @@ const AddFriendForm = ({ setFriends }) => {
   };
 
   return (
-    <form onSubmit={e => formHandler(e)}>
-      <input
-        type="text"
-        placeholder="Name"
-        name="name"
-        value={form.name}
-        onChange={e => setForm({ ...form, name: e.target.value })}
-      />
-      <input
-        type="number"
-        placeholder="Age"
-        name="age"
-        value={form.age}
-        onChange={e => setForm({ ...form, age: e.target.value })}
-      />
-      <input
-        type="email"
-        placeholder="Email"
-        name="email"
-        value={form.email}
-        onChange={e => setForm({ ...form, email: e.target.value })}
-      />
-      <input type="submit" />
-      {error && <p>Please fill in all the fields correctly</p>}
-    </form>
+    <div style={{ width: '30%', margin: '15px auto' }}>
+      <h3>Add a new friend to this list</h3>
+      <Form error onSubmit={e => formHandler(e)}>
+        <Form.Field>
+          <label>Name</label>
+          <input
+            type="text"
+            placeholder="Name"
+            name="name"
+            value={form.name}
+            onChange={e => setForm({ ...form, name: e.target.value })}
+          />
+        </Form.Field>
+        <Form.Field>
+          <label>Age</label>
+          <input
+            type="number"
+            placeholder="Age"
+            name="age"
+            value={form.age}
+            onChange={e => setForm({ ...form, age: e.target.value })}
+          />
+        </Form.Field>
+        <Form.Field>
+          <label>Email</label>
+          <input
+            type="email"
+            placeholder="Email"
+            name="email"
+            value={form.email}
+            onChange={e => setForm({ ...form, email: e.target.value })}
+          />
+        </Form.Field>
+        {error && (
+          <Message error content="Please fill in all the fields correctly" />
+        )}
+        <Button type="submit">Submit</Button>
+      </Form>
+    </div>
   );
 };
 
